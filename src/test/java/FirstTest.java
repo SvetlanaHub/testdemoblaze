@@ -1,29 +1,27 @@
-import org.junit.After;
-import org.junit.Before;
+
 import org.junit.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import java.time.Duration;
+import utils.Driver;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class FirstTest extends Generator {
 
-    public WebDriver driver;
+    private WebDriver driver = Driver.getChromeDriver();
 
-    @Before
+    @BeforeAll
     public void setUp() {
 
-        System.setProperty("webdriver.chrome.driver", "c:\\chromedriver\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        System.out.println("Test start");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.demoblaze.com/");
 
     }
 
-    @Test //sign up
+    @Test
+    @Order(1)
+    @DisplayName("We check that the user can sign in to the site")
     public void firstTest() {
 
         driver.findElement(By.xpath("//*[@id=\"signin2\"]")).click();
@@ -33,7 +31,9 @@ public class FirstTest extends Generator {
 
     }
 
-    @Test  //add to cart Nexus 6
+    @Test
+    @Order(2)
+    @DisplayName("Checking the addition of the phone to the cart")
     public void addToCartNexus6() {
 
         driver.findElement(By.xpath("//a[text()[contains(.,'Nexus 6')]]")).click();
@@ -43,7 +43,9 @@ public class FirstTest extends Generator {
 
     }
 
-    @Test  //add to cart Iphone 6 32gb
+    @Test
+    @Order(3)
+    @DisplayName("Checking the addition of the phone to the cart")
     public void addToCartIphone6() {
 
         driver.findElement(By.xpath("//*[text()[contains(.,'Iphone 6')]]")).click();
@@ -53,7 +55,7 @@ public class FirstTest extends Generator {
 
     }
 
-    @After
+    @AfterAll
     public void close() {
 
         System.out.println("Test close");
